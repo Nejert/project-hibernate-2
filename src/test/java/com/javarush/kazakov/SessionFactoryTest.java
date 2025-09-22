@@ -1,5 +1,6 @@
 package com.javarush.kazakov;
 
+import com.javarush.kazakov.config.SessionFactory;
 import org.hibernate.Session;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
