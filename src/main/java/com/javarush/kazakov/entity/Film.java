@@ -27,10 +27,12 @@ public class Film {
     private String description;
     @Column(name = "release_year")
     private Integer releaseYear;
-    @Column(name = "language_id")
-    private Integer languageId;
-    @Column(name = "original_language_id")
-    private Integer originalLanguageId;
+    @OneToOne
+    @JoinColumn(name = "language_id")
+    private Language language;
+    @OneToOne
+    @JoinColumn(name = "original_language_id")
+    private Language originalLanguage;
     @Column(name = "rental_duration")
     private Integer rentalDuration;
     @Column(name = "rental_rate")
