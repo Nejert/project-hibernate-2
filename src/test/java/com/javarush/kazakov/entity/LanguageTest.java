@@ -1,13 +1,14 @@
 package com.javarush.kazakov.entity;
 
 import com.javarush.kazakov.config.SessionFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-
+@Slf4j
 public class LanguageTest {
     @Test
     public void getLanguageTest() {
@@ -19,6 +20,7 @@ public class LanguageTest {
         try (Session session = SessionFactory.getSessionFactory().openSession()) {
             Film film = session.find(Film.class, filmId);
             Language actual = film.getLanguage();
+            log.debug(film.toString());
             Assertions.assertNotNull(actual);
             Assertions.assertEquals(expected.getLanguageId(), actual.getLanguageId());
             Assertions.assertEquals(expected.getName(), actual.getName());
@@ -31,6 +33,7 @@ public class LanguageTest {
         try (Session session = SessionFactory.getSessionFactory().openSession()) {
             Film film = session.find(Film.class, filmId);
             Language actual = film.getOriginalLanguage();
+            log.debug(film.toString());
             Assertions.assertNull(actual);
         }
     }

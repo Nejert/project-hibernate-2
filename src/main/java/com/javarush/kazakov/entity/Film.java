@@ -10,12 +10,13 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "film")
+@Table(name = "film", indexes = {
+        @Index(name = "film_text", columnList = "title, description")
+})
 @Getter
 @Setter
 @ToString(exclude = "specialFeaturesString")

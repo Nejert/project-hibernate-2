@@ -20,4 +20,9 @@ public class Language {
     private String name;
     @Column(name = "last_update")
     private LocalDateTime lastUpdate;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
