@@ -1,7 +1,6 @@
 package com.javarush.kazakov.entity;
 
 import com.javarush.kazakov.config.SessionFactory;
-import com.p6spy.engine.spy.appender.StdoutLogger;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.junit.jupiter.api.Assertions;
@@ -75,6 +74,21 @@ public class FilmTest {
                     .collect(Collectors.joining(","));
             Assertions.assertNotNull(specialFeaturesString);
             Assertions.assertEquals(expectedSpecialFeaturesStr, specialFeaturesString);
+        }
+    }
+
+    @Test
+    public void filmLanguageIdentityTest() {
+        int filmId1 = 1;
+        int filmId2 = 2;
+        try (Session session = SessionFactory.getSessionFactory().openSession()) {
+            Film film1 = session.find(Film.class, filmId1);
+            Film film2 = session.find(Film.class, filmId2);
+            log.debug("Film 1: {}",film1.toString());
+            log.debug("Film 2: {}",film2.toString());
+            Assertions.assertNotNull(film1.getLanguage());
+            Assertions.assertNotNull(film2.getLanguage());
+            Assertions.assertSame(film1.getLanguage(), film2.getLanguage());
         }
     }
 }

@@ -28,10 +28,10 @@ public class Film {
     private String description;
     @Column(name = "release_year")
     private Integer releaseYear;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "language_id")
     private Language language;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "original_language_id")
     private Language originalLanguage;
     @Column(name = "rental_duration")
