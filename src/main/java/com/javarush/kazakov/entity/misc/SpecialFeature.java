@@ -1,4 +1,4 @@
-package com.javarush.kazakov.entity;
+package com.javarush.kazakov.entity.misc;
 
 import lombok.Getter;
 

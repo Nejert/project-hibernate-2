@@ -1,12 +1,15 @@
 package com.javarush.kazakov.entity;
 
 import com.javarush.kazakov.config.SessionFactory;
+import com.javarush.kazakov.entity.misc.Rating;
+import com.javarush.kazakov.entity.misc.SpecialFeature;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -89,6 +92,22 @@ public class FilmTest {
             Assertions.assertNotNull(film1.getLanguage());
             Assertions.assertNotNull(film2.getLanguage());
             Assertions.assertSame(film1.getLanguage(), film2.getLanguage());
+        }
+    }
+
+    @Test
+    public void getCategoriesByFilmTest() {
+        int filmId = 1;
+        String expected = "Documentary";
+        try (Session session = SessionFactory.getSessionFactory().openSession()) {
+            Film film = session.find(Film.class, filmId);
+            List<Category> categories = film.getCategories();
+            String categoriesStr = categories.stream()
+                    .map(Category::getName)
+                    .collect(Collectors.joining(","));
+            log.debug("Film: '{}' categories: '{}'", film.getTitle(), categoriesStr);
+            Assertions.assertNotNull(categories);
+            Assertions.assertEquals(expected, categoriesStr);
         }
     }
 }

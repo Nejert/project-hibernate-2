@@ -1,6 +1,8 @@
 package com.javarush.kazakov.entity;
 
 import com.javarush.kazakov.config.RatingConverter;
+import com.javarush.kazakov.entity.misc.Rating;
+import com.javarush.kazakov.entity.misc.SpecialFeature;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,9 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -51,6 +51,11 @@ public class Film {
     private Set<SpecialFeature> specialFeatures;
     @Column(name = "last_update")
     private LocalDateTime lastUpdate;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="film_category",
+            joinColumns=  @JoinColumn(name="film_id", referencedColumnName="film_id"),
+            inverseJoinColumns= @JoinColumn(name="category_id", referencedColumnName="category_id"))
+    private List<Category> categories = new ArrayList<>();
 
     public Set<SpecialFeature> getSpecialFeatures() {
         if (specialFeaturesString == null) {

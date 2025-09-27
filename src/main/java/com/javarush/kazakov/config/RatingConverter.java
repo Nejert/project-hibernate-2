@@ -1,6 +1,6 @@
 package com.javarush.kazakov.config;
 
-import com.javarush.kazakov.entity.Rating;
+import com.javarush.kazakov.entity.misc.Rating;
 import jakarta.persistence.AttributeConverter;
 
 public class RatingConverter implements AttributeConverter<Rating, String> {
