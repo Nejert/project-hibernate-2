@@ -15,7 +15,9 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "film", indexes = {
-        @Index(name = "film_text", columnList = "title, description")
+        @Index(name = "idx_title", columnList = "title"),
+        @Index(name = "idx_fk_language_id", columnList = "language_id"),
+        @Index(name = "idx_fk_original_language_id", columnList = "original_language_id")
 })
 @Getter
 @Setter
@@ -56,6 +58,11 @@ public class Film {
             joinColumns=  @JoinColumn(name="film_id", referencedColumnName="film_id"),
             inverseJoinColumns= @JoinColumn(name="category_id", referencedColumnName="category_id"))
     private List<Category> categories = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="film_actor",
+            joinColumns=  @JoinColumn(name="film_id", referencedColumnName="film_id"),
+            inverseJoinColumns= @JoinColumn(name="actor_id", referencedColumnName="actor_id"))
+    private List<Actor> actors = new ArrayList<>();
 
     public Set<SpecialFeature> getSpecialFeatures() {
         if (specialFeaturesString == null) {

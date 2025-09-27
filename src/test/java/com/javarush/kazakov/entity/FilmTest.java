@@ -87,8 +87,8 @@ public class FilmTest {
         try (Session session = SessionFactory.getSessionFactory().openSession()) {
             Film film1 = session.find(Film.class, filmId1);
             Film film2 = session.find(Film.class, filmId2);
-            log.debug("Film 1: {}",film1.toString());
-            log.debug("Film 2: {}",film2.toString());
+            log.debug("Film 1: {}", film1.toString());
+            log.debug("Film 2: {}", film2.toString());
             Assertions.assertNotNull(film1.getLanguage());
             Assertions.assertNotNull(film2.getLanguage());
             Assertions.assertSame(film1.getLanguage(), film2.getLanguage());
@@ -105,9 +105,25 @@ public class FilmTest {
             String categoriesStr = categories.stream()
                     .map(Category::getName)
                     .collect(Collectors.joining(","));
-            log.debug("Film: '{}' categories: '{}'", film.getTitle(), categoriesStr);
+            log.debug("Film: '{}' Categories: '{}'", film.getTitle(), categoriesStr);
             Assertions.assertNotNull(categories);
             Assertions.assertEquals(expected, categoriesStr);
+        }
+    }
+
+    @Test
+    public void getActorsByFilmTest() {
+        int filmId = 1;
+        String expected = "PENELOPE GUINESS,CHRISTIAN GABLE,LUCILLE TRACY";
+        try (Session session = SessionFactory.getSessionFactory().openSession()) {
+            Film film = session.find(Film.class, filmId);
+            List<Actor> actors = film.getActors();
+            String actorsStr = actors.stream()
+                    .map(e -> e.getFirstName() + " " + e.getLastName())
+                    .collect(Collectors.joining(","));
+            log.debug("Film: '{}' Actors: '{}'", film.getTitle(), actorsStr);
+            Assertions.assertNotNull(actors);
+            Assertions.assertTrue(actorsStr.contains(expected));
         }
     }
 }

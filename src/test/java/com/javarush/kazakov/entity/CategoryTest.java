@@ -12,6 +12,18 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CategoryTest {
     @Test
+    public void getCategoryTest() {
+        int categoryId = 1;
+        String expected = "Action";
+        try (Session session = SessionFactory.getSessionFactory().openSession()) {
+            Category category = session.find(Category.class, categoryId);
+            log.debug(category.getName());
+            Assertions.assertNotNull(category);
+            Assertions.assertEquals(expected, category.getName());
+        }
+    }
+
+    @Test
     public void getFilmsByCategory() {
         int categoryId = 6;
         String expected = "ACADEMY DINOSAUR,ADAPTATION HOLES,ARMY FLINTSTONES";
