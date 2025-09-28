@@ -2,6 +2,7 @@ package com.javarush.kazakov.config;
 
 
 import lombok.SneakyThrows;
+import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 
@@ -33,7 +34,7 @@ public class TestSessionFactory {
         return sessionFactory;
     }
 
-//    public static void main(String[] args) {
-//        try (Session session = getSessionFactory().openSession()) {}
-//    }
+    public static void main(String[] args) {
+        try (Session session = getSessionFactory().openSession()) {}
+    }
 }
