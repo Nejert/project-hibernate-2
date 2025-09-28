@@ -20,6 +20,7 @@ public class SessionFactory {
     private static final String ENTITY = "entity";
     private static final String EXT = ".class";
     private static final String ENTITY_PACKAGE = "com.javarush.kazakov." + ENTITY;
+    private static final Configuration CONFIGURATION = new Configuration();
 
     private SessionFactory() {
         Properties properties = new Properties();
@@ -28,10 +29,9 @@ public class SessionFactory {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Configuration configuration = new Configuration().setProperties(properties);
-        addEntityAnnotatedClasses(configuration);
-        sessionFactory = configuration.buildSessionFactory();
-        int i = 0;
+        CONFIGURATION.setProperties(properties);
+        addEntityAnnotatedClasses();
+        sessionFactory = CONFIGURATION.buildSessionFactory();
     }
 
     public static org.hibernate.SessionFactory getSessionFactory() {
@@ -41,12 +41,12 @@ public class SessionFactory {
         return instance.sessionFactory;
     }
 
-    private void addEntityAnnotatedClasses(Configuration configuration) {
+    private void addEntityAnnotatedClasses() {
         for (String entityClassName : findEntityClassNames()) {
             try {
                 Class<?> entity = Class.forName(entityClassName);
                 if (entity.isAnnotationPresent(Entity.class)) {
-                    configuration.addAnnotatedClass(entity);
+                    CONFIGURATION.addAnnotatedClass(entity);
                 }
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);

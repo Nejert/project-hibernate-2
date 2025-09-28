@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 @ToString(exclude = "specialFeaturesString")
 public class Film {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "film_id")
     private Integer filmId;
     private String title;
@@ -52,6 +54,7 @@ public class Film {
     @Transient
     private Set<SpecialFeature> specialFeatures;
     @Column(name = "last_update")
+    @UpdateTimestamp
     private LocalDateTime lastUpdate;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="film_category",

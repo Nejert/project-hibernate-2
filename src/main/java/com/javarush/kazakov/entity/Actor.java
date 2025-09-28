@@ -3,6 +3,7 @@ package com.javarush.kazakov.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.List;
 @Setter
 public class Actor {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "actor_id")
     private Integer actorId;
     @Column(name = "first_name")
@@ -23,6 +25,7 @@ public class Actor {
     @Column(name = "last_name")
     private String lastName;
     @Column(name = "last_update")
+    @UpdateTimestamp
     private LocalDateTime lastUpdate;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="film_actor",

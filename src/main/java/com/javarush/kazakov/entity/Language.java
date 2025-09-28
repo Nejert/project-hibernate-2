@@ -1,11 +1,9 @@
 package com.javarush.kazakov.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -15,10 +13,12 @@ import java.time.LocalDateTime;
 @Setter
 public class Language {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "language_id")
     private Integer languageId;
     private String name;
     @Column(name = "last_update")
+    @UpdateTimestamp
     private LocalDateTime lastUpdate;
 
     @Override
