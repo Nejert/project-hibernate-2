@@ -23,8 +23,10 @@ public class Inventory {
     @JoinColumn(name = "film_id",
             foreignKey = @ForeignKey(name = "fk_inventory_film"))
     private Film film;
-    @Column(name = "store_id")
-    private Integer storeId;
+    @ManyToOne
+    @JoinColumn(name = "store_id",
+            foreignKey = @ForeignKey(name = "fk_inventory_store"))
+    private Store store;
     @Column(name = "last_update")
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
