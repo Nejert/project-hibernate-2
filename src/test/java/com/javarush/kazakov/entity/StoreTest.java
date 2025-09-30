@@ -13,9 +13,11 @@ public class StoreTest {
         int expectedAddressId = 1;
         try (Session session = SessionFactory.getSessionFactory().openSession()) {
             Store store = session.find(Store.class, storeId);
+            Staff staff = session.find(Staff.class, expectedManagerStaffId);
+            Address address = session.find(Address.class, expectedAddressId);
             Assertions.assertNotNull(store);
-            Assertions.assertEquals(expectedManagerStaffId, store.getManagerStaffId());
-            Assertions.assertEquals(expectedAddressId, store.getAddressId());
+            Assertions.assertSame(store.getManagerStaff(), staff);
+            Assertions.assertSame(store.getAddress(), address);
         }
     }
 }

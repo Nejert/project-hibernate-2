@@ -18,10 +18,14 @@ public class Store {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "store_id")
     private Integer storeId;
-    @Column(name = "manager_staff_id")
-    private Integer managerStaffId;
-    @Column(name = "address_id")
-    private Integer addressId;
+    @ManyToOne
+    @JoinColumn(name = "manager_staff_id",
+            foreignKey = @ForeignKey(name = "fk_store_staff"))
+    private Staff managerStaff;
+    @ManyToOne
+    @JoinColumn(name = "address_id",
+            foreignKey = @ForeignKey(name = "fk_store_address"))
+    private Address address;
     @Column(name = "last_update")
     @UpdateTimestamp
     private LocalDateTime lastUpdate;

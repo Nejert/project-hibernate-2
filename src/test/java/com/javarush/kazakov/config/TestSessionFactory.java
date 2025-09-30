@@ -1,6 +1,5 @@
 package com.javarush.kazakov.config;
 
-
 import lombok.SneakyThrows;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
