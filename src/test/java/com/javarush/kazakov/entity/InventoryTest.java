@@ -15,7 +15,7 @@ public class InventoryTest {
         try (Session session = SessionFactory.getSessionFactory().openSession()) {
             Inventory inventory = session.find(Inventory.class, inventoryId);
             Assertions.assertNotNull(inventory);
-            Assertions.assertEquals(expectedFilmTitle, inventory.getFilm().getTitle());
+            Assertions.assertEquals(expectedFilmTitle, inventory.getFilm().getFilmText().getTitle());
         }
     }
 }

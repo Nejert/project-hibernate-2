@@ -23,7 +23,7 @@ public class FilmTest {
             Film film = session.find(Film.class, filmId);
             log.debug(film.toString());
             Assertions.assertNotNull(film);
-            Assertions.assertEquals(title, film.getTitle());
+            Assertions.assertEquals(title, film.getFilmText().getTitle());
         }
     }
 
@@ -105,7 +105,7 @@ public class FilmTest {
             String categoriesStr = categories.stream()
                     .map(Category::getName)
                     .collect(Collectors.joining(","));
-            log.debug("Film: '{}' Categories: '{}'", film.getTitle(), categoriesStr);
+            log.debug("Film: '{}' Categories: '{}'", film.getFilmText().getTitle(), categoriesStr);
             Assertions.assertNotNull(categories);
             Assertions.assertEquals(expected, categoriesStr);
         }
@@ -121,7 +121,7 @@ public class FilmTest {
             String actorsStr = actors.stream()
                     .map(e -> e.getFirstName() + " " + e.getLastName())
                     .collect(Collectors.joining(","));
-            log.debug("Film: '{}' Actors: '{}'", film.getTitle(), actorsStr);
+            log.debug("Film: '{}' Actors: '{}'", film.getFilmText().getTitle(), actorsStr);
             Assertions.assertNotNull(actors);
             Assertions.assertTrue(actorsStr.contains(expected));
         }

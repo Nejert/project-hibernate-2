@@ -28,8 +28,11 @@ public class Film {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "film_id")
     private Integer filmId;
-    private String title;
-    private String description;
+//    private String title;
+//    private String description;
+    @OneToOne
+    @JoinColumn(name = "film_id")
+    private FilmText filmText;
     @Column(name = "release_year")
     private Integer releaseYear;
     @ManyToOne

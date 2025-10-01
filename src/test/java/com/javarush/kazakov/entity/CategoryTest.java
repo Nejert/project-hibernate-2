@@ -31,7 +31,8 @@ public class CategoryTest {
             Category category = session.find(Category.class, categoryId);
             List<Film> films = category.getFilms();
             String filmsStr = films.stream()
-                    .map(Film::getTitle)
+                    .map(Film::getFilmText)
+                    .map(FilmText::getTitle)
                     .collect(Collectors.joining(","));
             log.debug("Category: '{}' Films: '{}'", category.getName(), filmsStr);
             Assertions.assertNotNull(films);

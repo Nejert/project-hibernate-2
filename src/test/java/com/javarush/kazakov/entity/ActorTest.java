@@ -33,7 +33,8 @@ public class ActorTest {
             String actorName = "%s %s".formatted(actor.getFirstName(), actor.getLastName());
             List<Film> films = actor.getFilms();
             String filmsStr = films.stream()
-                    .map(Film::getTitle)
+                    .map(Film::getFilmText)
+                    .map(FilmText::getTitle)
                     .collect(Collectors.joining(","));
             log.debug("Actor: '{}' Films: '{}'", actorName, filmsStr);
             Assertions.assertNotNull(films);
