@@ -34,6 +34,7 @@ public class TestSessionFactory {
     }
 
     public static void main(String[] args) {
-        try (Session session = getSessionFactory().openSession()) {}
+        try (Session session = getSessionFactory().openSession()) {
+        }
     }
 }

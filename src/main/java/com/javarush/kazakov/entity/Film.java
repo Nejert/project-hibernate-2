@@ -15,7 +15,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "film", indexes = {
+@Table(name = "film", schema = "movie", indexes = {
         @Index(name = "idx_title", columnList = "title"),
         @Index(name = "idx_fk_language_id", columnList = "language_id"),
         @Index(name = "idx_fk_original_language_id", columnList = "original_language_id")
@@ -26,27 +26,29 @@ import java.util.stream.Collectors;
 public class Film {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "film_id")
+    @Column(name = "film_id", columnDefinition = "smallint UNSIGNED", nullable = false)
     private Integer filmId;
-//    private String title;
-//    private String description;
-    @OneToOne
+    @OneToOne(optional = false)
     @JoinColumn(name = "film_id")
     private FilmText filmText;
     @Column(name = "release_year")
     private Integer releaseYear;
-    @ManyToOne
-    @JoinColumn(name = "language_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "language_id",
+            foreignKey = @ForeignKey(name = "fk_film_language"),
+            nullable = false)
     private Language language;
     @ManyToOne
-    @JoinColumn(name = "original_language_id")
+    @JoinColumn(name = "original_language_id",
+            foreignKey = @ForeignKey(name = "fk_film_language_original"))
     private Language originalLanguage;
-    @Column(name = "rental_duration")
+    @Column(name = "rental_duration", columnDefinition = "tinyint UNSIGNED",nullable = false)
     private Integer rentalDuration;
-    @Column(name = "rental_rate")
+    @Column(name = "rental_rate",nullable = false)
     private Double rentalRate;
+    @Column(columnDefinition = "smallint UNSIGNED")
     private Integer length;
-    @Column(name = "replacement_cost")
+    @Column(name = "replacement_cost", nullable = false)
     private Double replacementCost;
     @Convert(converter = RatingConverter.class)
     private Rating rating;
@@ -56,18 +58,18 @@ public class Film {
     private String specialFeaturesString;
     @Transient
     private Set<SpecialFeature> specialFeatures;
-    @Column(name = "last_update")
+    @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="film_category",
-            joinColumns=  @JoinColumn(name="film_id", referencedColumnName="film_id"),
-            inverseJoinColumns= @JoinColumn(name="category_id", referencedColumnName="category_id"))
+            joinColumns=  @JoinColumn(name="film_id", referencedColumnName="film_id", foreignKey = @ForeignKey(name = "fk_film_category_film")),
+            inverseJoinColumns= @JoinColumn(name="category_id", referencedColumnName="category_id",foreignKey = @ForeignKey(name = "fk_film_category_category")))
     private List<Category> categories = new ArrayList<>();
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="film_actor",
-            joinColumns=  @JoinColumn(name="film_id", referencedColumnName="film_id"),
-            inverseJoinColumns= @JoinColumn(name="actor_id", referencedColumnName="actor_id"))
+            joinColumns=  @JoinColumn(name="film_id", referencedColumnName="film_id", foreignKey = @ForeignKey(name = "fk_film_actor_film")),
+            inverseJoinColumns= @JoinColumn(name="actor_id", referencedColumnName="actor_id"), foreignKey = @ForeignKey(name = "fk_film_actor_actor"))
     private List<Actor> actors = new ArrayList<>();
 
     public Set<SpecialFeature> getSpecialFeatures() {

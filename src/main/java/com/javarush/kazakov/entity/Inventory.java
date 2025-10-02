@@ -17,17 +17,19 @@ import java.time.LocalDateTime;
 public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "inventory_id")
+    @Column(name = "inventory_id", nullable = false)
     private Integer inventoryId;
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "film_id",
-            foreignKey = @ForeignKey(name = "fk_inventory_film"))
+            foreignKey = @ForeignKey(name = "fk_inventory_film"),
+            nullable = false)
     private Film film;
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "store_id",
-            foreignKey = @ForeignKey(name = "fk_inventory_store"))
+            foreignKey = @ForeignKey(name = "fk_inventory_store"),
+            nullable = false)
     private Store store;
-    @Column(name = "last_update")
+    @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
 }

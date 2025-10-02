@@ -16,19 +16,24 @@ import java.time.LocalDateTime;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "address_id")
+    @Column(name = "address_id", columnDefinition = "smallint UNSIGNED", nullable = false)
     private Integer address_id;
+    @Column(nullable = false, length = 50)
     private String address;
+    @Column(length = 50)
     private String address2;
+    @Column(nullable = false, length = 20)
     private String district;
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "city_id",
-            foreignKey = @ForeignKey(name = "fk_address_city"))
+            foreignKey = @ForeignKey(name = "fk_address_city"),
+            nullable = false)
     private City city;
-    @Column(name = "postal_code")
+    @Column(name = "postal_code", length = 10)
     private String postal_code;
+    @Column(nullable = false, length = 20)
     private String phone;
-    @Column(name = "last_update")
+    @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
     private LocalDateTime last_update;
 }

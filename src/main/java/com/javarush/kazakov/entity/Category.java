@@ -10,16 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "category")
+@Table(name = "category", schema = "movie")
 @Getter
 @Setter
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
+    @Column(name = "category_id",columnDefinition = "tinyint UNSIGNED", nullable = false)
     private Integer categoryId;
+    @Column(nullable = false, length = 25)
     private String name;
-    @Column(name = "last_update")
+    @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
     @ManyToMany(cascade = CascadeType.ALL)

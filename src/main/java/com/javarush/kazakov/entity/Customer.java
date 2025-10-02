@@ -19,23 +19,27 @@ import java.time.LocalDateTime;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id")
+    @Column(name = "customer_id", columnDefinition = "smallint UNSIGNED", nullable = false)
     private Integer customerId;
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "store_id",
-            foreignKey = @ForeignKey(name = "fk_customer_store"))
+            foreignKey = @ForeignKey(name = "fk_customer_store"),
+            nullable = false)
     private Store store;
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
+    @Column(length = 50)
     private String email;
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "address_id",
-            foreignKey = @ForeignKey(name = "fk_customer_address"))
+            foreignKey = @ForeignKey(name = "fk_customer_address"),
+            nullable = false)
     private Address address;
+    @Column(nullable = false)
     private Boolean active;
-    @Column(name = "create_date")
+    @Column(name = "create_date", nullable = false)
     @CreationTimestamp
     private LocalDateTime createDate;
     @Column(name = "last_update")

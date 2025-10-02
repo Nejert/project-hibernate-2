@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "actor", indexes = {
+@Table(name = "actor", schema = "movie",
+        indexes = {
         @Index(name = "idx_actor_last_name", columnList = "last_name")
 })
 @Getter
@@ -18,13 +19,13 @@ import java.util.List;
 public class Actor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "actor_id")
+    @Column(name = "actor_id", columnDefinition = "smallint UNSIGNED", nullable = false)
     private Integer actorId;
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
-    @Column(name = "last_update")
+    @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
     @ManyToMany(cascade = CascadeType.ALL)

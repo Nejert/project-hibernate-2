@@ -19,22 +19,25 @@ import java.time.LocalDateTime;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "payment_id")
+    @Column(name = "payment_id", columnDefinition = "smallint UNSIGNED", nullable = false)
     private Integer paymentId;
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "customer_id",
-            foreignKey = @ForeignKey(name = "fk_payment_customer"))
+            foreignKey = @ForeignKey(name = "fk_payment_customer"),
+            nullable = false)
     private Customer customer;
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "staff_id",
-            foreignKey = @ForeignKey(name = "fk_payment_staff"))
+            foreignKey = @ForeignKey(name = "fk_payment_staff"),
+    nullable = false)
     private Staff staff;
     @ManyToOne
     @JoinColumn(name = "rental_id",
             foreignKey = @ForeignKey(name = "fk_payment_rental"))
     private Rental rental;
+    @Column(nullable = false)
     private Double amount;
-    @Column(name = "payment_date")
+    @Column(name = "payment_date", nullable = false)
     private LocalDateTime paymentDate;
     @Column(name = "last_update")
     @UpdateTimestamp

@@ -17,28 +17,34 @@ import java.time.LocalDateTime;
 public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "staff_id")
+    @Column(name = "staff_id", columnDefinition = "tinyint UNSIGNED", nullable = false)
     private Integer staffId;
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "address_id",
-            foreignKey = @ForeignKey(name = "fk_staff_address"))
+            foreignKey = @ForeignKey(name = "fk_staff_address"),
+            nullable = false)
     private Address address;
     @Lob
-    @Column(columnDefinition="BLOB")
+    @Column(columnDefinition = "BLOB")
     private byte[] picture;
+    @Column(length = 50)
     private String email;
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "store_id",
-            foreignKey = @ForeignKey(name = "fk_staff_store"))
+            foreignKey = @ForeignKey(name = "fk_staff_store"),
+            nullable = false)
     private Store store;
+    @Column(nullable = false)
     private Boolean active;
+    @Column(nullable = false, length = 16)
     private String username;
+    @Column(length = 40)
     private String password;
-    @Column(name = "last_update")
+    @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
 }

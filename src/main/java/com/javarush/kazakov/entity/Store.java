@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "store", schema = "movie", indexes = {
         @Index(name = "idx_unique_manager", columnList = "manager_staff_id", unique = true),
@@ -16,17 +17,19 @@ import java.time.LocalDateTime;
 public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "store_id")
+    @Column(name = "store_id", columnDefinition = "tinyint UNSIGNED", nullable = false)
     private Integer storeId;
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "manager_staff_id",
-            foreignKey = @ForeignKey(name = "fk_store_staff"))
+            foreignKey = @ForeignKey(name = "fk_store_staff"),
+            nullable = false)
     private Staff managerStaff;
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "address_id",
-            foreignKey = @ForeignKey(name = "fk_store_address"))
+            foreignKey = @ForeignKey(name = "fk_store_address"),
+            nullable = false)
     private Address address;
-    @Column(name = "last_update")
+    @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
 }

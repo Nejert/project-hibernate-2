@@ -14,10 +14,11 @@ import java.time.LocalDateTime;
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "country_id")
+    @Column(name = "country_id", columnDefinition = "smallint UNSIGNED", nullable = false)
     private Integer countryId;
+    @Column(nullable = false, length = 50)
     private String country;
-    @Column(name = "last_update")
+    @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
 }
