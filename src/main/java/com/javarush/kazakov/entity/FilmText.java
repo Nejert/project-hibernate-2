@@ -13,9 +13,8 @@ import lombok.Setter;
 @Setter
 public class FilmText {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "film_id", nullable = false)
-    private Integer film_id;
+    private Integer filmId;
     @Column(nullable = false)
     private String title;
     private String description;

@@ -31,6 +31,8 @@ public class Film {
     @OneToOne(optional = false)
     @JoinColumn(name = "film_id")
     private FilmText filmText;
+    private String title;
+    private String description;
     @Column(name = "release_year")
     private Integer releaseYear;
     @ManyToOne(optional = false)
@@ -91,5 +93,11 @@ public class Film {
                     .map(SpecialFeature::getFeature)
                     .collect(Collectors.joining(","));
         }
+    }
+
+    public void setFilmText(FilmText filmText) {
+        this.filmText = filmText;
+        this.title = filmText.getTitle();
+        this.description = filmText.getDescription();
     }
 }
