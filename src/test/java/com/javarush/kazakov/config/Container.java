@@ -9,13 +9,12 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class Container {
-    public static final MySQLContainer<?> CONTAINER;
-    public static final String DOCKER_IMAGE_NAME = "mysql:8.0.36";
     public static final SessionFactory SESSION_FACTORY;
+    public static final MySQLContainer<?> CONTAINER;
+    private static final String DOCKER_IMAGE_NAME = "mysql:8.0.36";
     private static final String TEST_SCHEMA = "movie";
     private static final String TEST_USER = "root";
     private static final String TEST_PASSWORD = "root";
-    private static final int PORT;
 
     static {
         CONTAINER = new MySQLContainer<>(DOCKER_IMAGE_NAME)
@@ -37,9 +36,7 @@ public class Container {
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
-        PORT = CONTAINER.getFirstMappedPort();
         SESSION_FACTORY = initContainerSessionFactory();
-        int i = 0;
     }
 
     private static SessionFactory initContainerSessionFactory() {

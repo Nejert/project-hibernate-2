@@ -15,14 +15,13 @@ import java.util.Properties;
 import java.util.stream.Stream;
 
 public class SessionFactory {
-    private static SessionFactory instance;
-    private final org.hibernate.SessionFactory sessionFactory;
+    protected static org.hibernate.SessionFactory sessionFactory;
     private static final String ENTITY = "entity";
     private static final String EXT = ".class";
     private static final String ENTITY_PACKAGE = "com.javarush.kazakov." + ENTITY;
-    private static final Configuration CONFIGURATION = new Configuration();
+    protected static final Configuration CONFIGURATION = new Configuration();
 
-    private SessionFactory() {
+    protected SessionFactory() {
         Properties properties = new Properties();
         try {
             properties.load(SessionFactory.class.getResourceAsStream("/hibernate.properties"));
@@ -31,14 +30,14 @@ public class SessionFactory {
         }
         CONFIGURATION.setProperties(properties);
         addEntityAnnotatedClasses();
-        sessionFactory = CONFIGURATION.buildSessionFactory();
     }
 
     public static org.hibernate.SessionFactory getSessionFactory() {
-        if (instance == null) {
-            instance = new SessionFactory();
+        if (sessionFactory == null) {
+            new SessionFactory();
+            sessionFactory = CONFIGURATION.buildSessionFactory();
         }
-        return instance.sessionFactory;
+        return sessionFactory;
     }
 
     private void addEntityAnnotatedClasses() {
