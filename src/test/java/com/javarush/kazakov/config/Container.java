@@ -1,5 +1,6 @@
 package com.javarush.kazakov.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Environment;
 import org.testcontainers.containers.MySQLContainer;
@@ -8,6 +9,7 @@ import org.testcontainers.utility.MountableFile;
 import java.io.IOException;
 import java.util.Properties;
 
+@Slf4j
 public class Container {
     public static final SessionFactory SESSION_FACTORY;
     public static final MySQLContainer<?> CONTAINER;
@@ -33,6 +35,8 @@ public class Container {
                             "--password=%s".formatted(TEST_PASSWORD),
                             "--database=%s".formatted(TEST_SCHEMA),
                             "-e", "source /home/dump-hibernate-2.sql");
+            log.info("Executing mysql script within container.\nStdout:'{}'\nStderr:'{}'\nExitCode:'{}'",
+                    mysql.getStdout(), mysql.getStderr(), mysql.getExitCode());
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }

@@ -61,7 +61,7 @@ public class FilmTest {
         try (Session session = SessionFactory.getSessionFactory().openSession()) {
             Film film = session.find(Film.class, filmId);
             film.setSpecialFeatures(specialFeatures);
-            Field field = null;
+            Field field;
             String specialFeaturesString = null;
             try {
                 field = film.getClass().getDeclaredField("specialFeaturesString");

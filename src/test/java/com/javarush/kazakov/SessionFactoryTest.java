@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class SessionFactoryTest {
     @Test
     public void getSessionAndDataTest() {
-        Integer result = null;
+        Integer result;
         int expectedRows = 1000;
         try (Session session = SessionFactory.getSessionFactory().openSession()) {
             result = session.createNativeQuery("SELECT count(*) FROM film", Integer.class).uniqueResult();

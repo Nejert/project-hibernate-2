@@ -41,7 +41,7 @@ public class SolutionTest extends Container {
         try (Session session = SESSION_FACTORY.openSession()) {
             Transaction transaction = session.beginTransaction();
 
-            store = session.find(Store.class, 1);
+            store = session.find(Store.class, storeId);
 
             city = session.createQuery("from City c where c.city = :name", City.class)
                     .setParameter("name", cityName)
@@ -143,7 +143,6 @@ public class SolutionTest extends Container {
             session.persist(payment);
             transaction.commit();
 
-            int i = 0;
             int expectedRentalId = 16050;
             Rental testRental = session.get(Rental.class, expectedRentalId);
             Payment testPayment = session.get(Payment.class, expectedRentalId);

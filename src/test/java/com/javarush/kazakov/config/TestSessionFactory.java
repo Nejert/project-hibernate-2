@@ -30,8 +30,4 @@ public class TestSessionFactory extends SessionFactory {
         }
         return sessionFactory;
     }
-//    public static void main(String[] args) {
-//        try (Session session = getSessionFactory().openSession()) {
-//        }
-//    }
 }
